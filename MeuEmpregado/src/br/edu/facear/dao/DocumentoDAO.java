@@ -7,8 +7,7 @@ import javax.persistence.Query;
 
 import br.edu.facear.entity.DocumentoEmpregado;
 
-
-public class DocumentoDAO  implements InterfaceDao<DocumentoEmpregado>{
+public class DocumentoDAO implements InterfaceDao<DocumentoEmpregado> {
 
 	@Override
 	public void inserir(DocumentoEmpregado d) {
@@ -17,7 +16,7 @@ public class DocumentoDAO  implements InterfaceDao<DocumentoEmpregado>{
 		em.persist(d);
 		em.getTransaction().commit();
 		em.close();
-		
+
 	}
 
 	@Override
@@ -26,7 +25,7 @@ public class DocumentoDAO  implements InterfaceDao<DocumentoEmpregado>{
 		em.getTransaction().begin();
 		em.merge(d);
 		em.getTransaction().commit();
-		em.close();	
+		em.close();
 	}
 
 	@Override
@@ -42,7 +41,7 @@ public class DocumentoDAO  implements InterfaceDao<DocumentoEmpregado>{
 	public DocumentoEmpregado listarId(int iddocumento) {
 		EntityManager em = Conexao.getInstance();
 		DocumentoEmpregado d = em.find(DocumentoEmpregado.class, iddocumento);
-		em.close();	
+		em.close();
 		return d;
 	}
 

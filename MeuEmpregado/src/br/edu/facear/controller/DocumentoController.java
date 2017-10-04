@@ -39,7 +39,12 @@ public class DocumentoController {
 	
 	}
 
-	
+
+		public void BuscaDocumento(String id) {
+			
+			
+			
+		}
 
 	public String salvar() throws IOException {
 		System.out.println("Caminho:" + diretorio);
