@@ -38,6 +38,7 @@ public class DocumentoController {
 	
 	}
 
+	
 
 	public String salvar() throws IOException {
 		System.out.println("Caminho:" + caminhoImagem);
