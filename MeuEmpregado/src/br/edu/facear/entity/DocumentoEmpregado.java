@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Documento {
+public class DocumentoEmpregado {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -16,25 +16,22 @@ public class Documento {
 	private int idcliente;	
 	private Date data;
 	private String status;
-	private String tipodoc;
+	private TipoDocumento tipodoc;
+	private String diretorio;
 	
-	private String caminhoImagem;
 	
-	
-	public String getTipodoc() {
+	public TipoDocumento getTipodoc() {
 		return tipodoc;
 	}
-	public void setTipodoc(String tipodoc) {
+	public void setTipodoc(TipoDocumento tipodoc) {
 		this.tipodoc = tipodoc;
 	}
-	
-	
-	public String getCaminhoImagem() {
-		return caminhoImagem;
+	public String getDiretorio() {
+		return diretorio;
 	}
-	public void setCaminhoImagem(String caminhoImagem) {
-		this.caminhoImagem = caminhoImagem;
-	}
+	public void setDiretorio(String diretorio) {
+		this.diretorio = diretorio;
+	}	
 	public Integer getIddocumento() {
 		return iddocumento;
 	}

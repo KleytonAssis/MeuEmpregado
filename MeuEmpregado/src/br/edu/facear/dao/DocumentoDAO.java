@@ -5,13 +5,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import br.edu.facear.entity.Documento;
+import br.edu.facear.entity.DocumentoEmpregado;
 
 
-public class DocumentoDao  implements InterfaceDao<Documento>{
+public class DocumentoDAO  implements InterfaceDao<DocumentoEmpregado>{
 
 	@Override
-	public void inserir(Documento d) {
+	public void inserir(DocumentoEmpregado d) {
 		EntityManager em = Conexao.getInstance();
 		em.getTransaction().begin();
 		em.persist(d);
@@ -21,7 +21,7 @@ public class DocumentoDao  implements InterfaceDao<Documento>{
 	}
 
 	@Override
-	public void alterar(Documento d) {
+	public void alterar(DocumentoEmpregado d) {
 		EntityManager em = Conexao.getInstance();
 		em.getTransaction().begin();
 		em.merge(d);
@@ -30,18 +30,18 @@ public class DocumentoDao  implements InterfaceDao<Documento>{
 	}
 
 	@Override
-	public List<Documento> listarTodos() {
+	public List<DocumentoEmpregado> listarTodos() {
 		EntityManager em = Conexao.getInstance();
 		Query q = em.createQuery("from Documento");
-		List<Documento> documentos = q.getResultList();
+		List<DocumentoEmpregado> documentos = q.getResultList();
 		em.close();
 		return documentos;
 	}
 
 	@Override
-	public Documento listarId(int iddocumento) {
+	public DocumentoEmpregado listarId(int iddocumento) {
 		EntityManager em = Conexao.getInstance();
-		Documento d = em.find(Documento.class, iddocumento);
+		DocumentoEmpregado d = em.find(DocumentoEmpregado.class, iddocumento);
 		em.close();	
 		return d;
 	}

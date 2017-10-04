@@ -12,8 +12,9 @@ import javax.faces.bean.ManagedBean;
 
 import org.apache.catalina.core.ApplicationPart;
 
-import br.edu.facear.dao.DocumentoDao;
-import br.edu.facear.entity.Documento;
+import br.edu.facear.dao.DocumentoDAO;
+import br.edu.facear.entity.DocumentoEmpregado;
+import br.edu.facear.entity.TipoDocumento;
 
 @ManagedBean(name = "DocumentoController")
 public class DocumentoController {
@@ -23,17 +24,17 @@ public class DocumentoController {
 	private int idcliente;	
 	private Date data;
 	private String status;
-	private String tipodoc;
+	private TipoDocumento tipodoc;
 	
-	private String caminhoImagem;
+	private String diretorio;
 	
-	private List<Documento> documentos = new ArrayList<Documento>();
+	private List<DocumentoEmpregado> documentos = new ArrayList<DocumentoEmpregado>();
 	
 	private ApplicationPart foto;
 
-	@PostConstruct
+		@PostConstruct
 	public void carregarDocumentos() {
-		DocumentoDao documentoDao = new DocumentoDao();
+		DocumentoDAO documentoDao = new DocumentoDAO();
 		documentos = documentoDao.listarTodos();
 	
 	}
@@ -41,10 +42,10 @@ public class DocumentoController {
 	
 
 	public String salvar() throws IOException {
-		System.out.println("Caminho:" + caminhoImagem);
+		System.out.println("Caminho:" + diretorio);
 		//System.out.println("Idade:" + status);
 
-		String caminhoImagem = "";
+		String diretorio = "";
 		if (foto != null) {
 			byte[] bytes = new byte[(int) foto.getSize()];
 			foto.getInputStream().read(bytes);
@@ -55,18 +56,18 @@ public class DocumentoController {
 			fo.write(bytes);
 			fo.close();
 
-			caminhoImagem = "c:\\temp\\" + foto.getSubmittedFileName();
+			diretorio = "c:\\temp\\" + foto.getSubmittedFileName();
 		}
 
 		
-		Documento d = new Documento();
+		DocumentoEmpregado d = new DocumentoEmpregado();
 		d.setIdcliente(idcliente);
 		d.setData(data);
 		d.setTipodoc(tipodoc);
 		d.setStatus(status);
-		d.setCaminhoImagem(caminhoImagem);
+		d.setDiretorio(diretorio);
 
-		DocumentoDao documentoDao = new DocumentoDao();
+		DocumentoDAO documentoDao = new DocumentoDAO();
 
 		if (iddocumento == null || iddocumento == 0) {
 			documentoDao.inserir(d);
@@ -81,19 +82,39 @@ public class DocumentoController {
 	}
 
 
-	public String carregar(Documento d) {
+	public String carregar(DocumentoEmpregado d) {
 		this.iddocumento = iddocumento;
 		this.idcliente = idcliente;
 		this.data = data;
 		this.tipodoc = tipodoc;
 		this.status = status;
-		this.caminhoImagem = caminhoImagem;
+		this.diretorio = diretorio;
 		this.documentos = documentos;
 		this.foto = foto;
 		return "";
 	}
 
+	public TipoDocumento getTipodoc() {
+		return tipodoc;
+	}
 
+
+
+	public void setTipodoc(TipoDocumento tipodoc) {
+		this.tipodoc = tipodoc;
+	}
+
+
+
+	public String getDiretorio() {
+		return diretorio;
+	}
+
+
+
+	public void setDiretorio(String diretorio) {
+		this.diretorio = diretorio;
+	}
 	public Integer getIddocumento() {
 		return iddocumento;
 	}
@@ -134,21 +155,21 @@ public class DocumentoController {
 
 
 	public String getCaminhoImagem() {
-		return caminhoImagem;
+		return diretorio;
 	}
 
 
-	public void setCaminhoImagem(String caminhoImagem) {
-		this.caminhoImagem = caminhoImagem;
+	public void setCaminhoImagem(String diretorio) {
+		this.diretorio = diretorio;
 	}
 
 
-	public List<Documento> getDocumentos() {
+	public List<DocumentoEmpregado> getDocumentos() {
 		return documentos;
 	}
 
 
-	public void setDocumentos(List<Documento> documentos) {
+	public void setDocumentos(List<DocumentoEmpregado> documentos) {
 		this.documentos = documentos;
 	}
 
@@ -161,15 +182,4 @@ public class DocumentoController {
 	public void setFoto(ApplicationPart foto) {
 		this.foto = foto;
 	}
-
-
-	public String getTipodoc() {
-		return tipodoc;
-	}
-
-
-	public void setTipodoc(String tipodoc) {
-		this.tipodoc = tipodoc;
-	}
-
 }
